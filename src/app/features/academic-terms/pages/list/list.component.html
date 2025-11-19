@@ -1,0 +1,112 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <h3 class="m-0">Períodos Académicos</h3>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <p-dropdown 
+        [options]="statusOptions" 
+        [(ngModel)]="selectedStatus" 
+        (onChange)="filterByStatus()"
+        placeholder="Filtrar por estado"
+        styleClass="mr-2">
+      </p-dropdown>
+      <p-button 
+        label="Nuevo Período" 
+        icon="pi pi-plus" 
+        (onClick)="createNew()">
+      </p-button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table 
+    [value]="academicTerms" 
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [lazy]="true"
+    (onLazyLoad)="onPageChange($event)"
+    [first]="first"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines">
+    
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="code">
+          Código
+          <p-sortIcon field="code"></p-sortIcon>
+        </th>
+        <th>Período</th>
+        <th pSortableColumn="startOfTerm">
+          Fecha Inicio
+          <p-sortIcon field="startOfTerm"></p-sortIcon>
+        </th>
+        <th pSortableColumn="endOfTerm">
+          Fecha Fin
+          <p-sortIcon field="endOfTerm"></p-sortIcon>
+        </th>
+        <th pSortableColumn="academicYear">
+          Año Académico
+          <p-sortIcon field="academicYear"></p-sortIcon>
+        </th>
+        <th>Estado</th>
+        <th style="width: 12rem">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-term>
+      <tr>
+        <td>{{ term.code }}</td>
+        <td>{{ term.label }}</td>
+        <td>{{ term.startOfTerm | date:'dd/MM/yyyy' }}</td>
+        <td>{{ term.endOfTerm | date:'dd/MM/yyyy' }}</td>
+        <td>{{ term.academicYear }}</td>
+        <td>
+          <p-tag 
+            [value]="getStatusLabel(term.status)" 
+            [severity]="getStatusSeverity(term.status)">
+          </p-tag>
+        </td>
+        <td>
+          <div class="flex gap-2">
+            <p-button 
+              icon="pi pi-pencil" 
+              styleClass="p-button-rounded p-button-text p-button-warning"
+              (onClick)="edit(term)"
+              pTooltip="Editar"
+              tooltipPosition="top">
+            </p-button>
+            <p-button 
+              *ngIf="term.status === 'ENABLED'"
+              icon="pi pi-times" 
+              styleClass="p-button-rounded p-button-text p-button-danger"
+              (onClick)="disable(term)"
+              pTooltip="Deshabilitar"
+              tooltipPosition="top">
+            </p-button>
+            <p-button 
+              *ngIf="term.status === 'DISABLED'"
+              icon="pi pi-check" 
+              styleClass="p-button-rounded p-button-text p-button-success"
+              (onClick)="enable(term)"
+              pTooltip="Habilitar"
+              tooltipPosition="top">
+            </p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center">
+          <div class="p-4">
+            <i class="pi pi-info-circle text-4xl text-400"></i>
+            <p class="text-500 mt-3">No se encontraron períodos académicos</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,105 @@
+<div class="card">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h3 class="m-0">{{ isEditMode ? 'Editar' : 'Crear' }} Período Académico</h3>
+    <p-button 
+      icon="pi pi-arrow-left" 
+      label="Volver" 
+      styleClass="p-button-text"
+      (onClick)="cancel()">
+    </p-button>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-content-center align-items-center p-5">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="grid">
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="startDate" class="block mb-2">
+            Fecha de Inicio <span class="text-red-500">*</span>
+          </label>
+          <p-calendar 
+            id="startDate"
+            formControlName="startDate"
+            [showIcon]="true"
+            dateFormat="dd/mm/yy"
+            placeholder="Seleccione fecha de inicio"
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('startDate')}">
+          </p-calendar>
+          <small 
+            *ngIf="isFieldInvalid('startDate')" 
+            class="p-error block mt-1">
+            {{ getFieldError('startDate') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="endDate" class="block mb-2">
+            Fecha de Fin <span class="text-red-500">*</span>
+          </label>
+          <p-calendar 
+            id="endDate"
+            formControlName="endDate"
+            [showIcon]="true"
+            dateFormat="dd/mm/yy"
+            placeholder="Seleccione fecha de fin"
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('endDate')}">
+          </p-calendar>
+          <small 
+            *ngIf="isFieldInvalid('endDate')" 
+            class="p-error block mt-1">
+            {{ getFieldError('endDate') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="year" class="block mb-2">
+            Año Académico <span class="text-red-500">*</span>
+          </label>
+          <p-inputNumber 
+            id="year"
+            formControlName="year"
+            [useGrouping]="false"
+            placeholder="Ingrese año académico"
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('year')}">
+          </p-inputNumber>
+          <small 
+            *ngIf="isFieldInvalid('year')" 
+            class="p-error block mt-1">
+            {{ getFieldError('year') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="flex gap-2 justify-content-end mt-3">
+          <p-button 
+            label="Cancelar" 
+            icon="pi pi-times" 
+            styleClass="p-button-text"
+            (onClick)="cancel()"
+            [disabled]="submitting">
+          </p-button>
+          <p-button 
+            type="submit"
+            [label]="isEditMode ? 'Actualizar' : 'Crear'" 
+            icon="pi pi-check"
+            [loading]="submitting">
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
