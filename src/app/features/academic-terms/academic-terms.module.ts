@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AcademicTermsRoutingModule } from './academic-terms-routing.module';
 import { PrimengModule } from '../../shared/modules/primeng.module';
-import { ListComponent } from './pages/list/list.component';
+import { AcademicTermsRoutingModule } from './academic-terms-routing.module';
 import { FormComponent } from './pages/form/form.component';
+import { ListComponent } from './pages/list/list.component';
 
 
 @NgModule({

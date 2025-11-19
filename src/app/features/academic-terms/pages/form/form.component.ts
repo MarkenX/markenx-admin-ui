@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AcademicTermsService } from '../../../../core/api/services/AcademicTermsService';
 import { CreateAcademicPeriodRequestDTO } from '../../../../core/api/models/CreateAcademicPeriodRequestDTO';
+import { AcademicTermsService } from '../../../../core/api/services/AcademicTermsService';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
@@ -19,7 +19,6 @@ export class FormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private academicTermsService: AcademicTermsService,
     private toastService: ToastService,
     private router: Router,
     private route: ActivatedRoute
@@ -50,20 +49,17 @@ export class FormComponent implements OnInit {
     if (!this.academicTermId) return;
 
     this.loading = true;
-    this.academicTermsService.getAcademicPeriodById({ id: this.academicTermId }).subscribe({
-      next: (term) => {
-        this.form.patchValue({
-          startDate: new Date(term.startOfTerm!),
-          endDate: new Date(term.endOfTerm!),
-          year: term.academicYear
-        });
-        this.loading = false;
-      },
-      error: (error) => {
-        this.toastService.error('Error al cargar período académico');
-        this.loading = false;
-        this.cancel();
-      }
+    AcademicTermsService.getAcademicTermById(this.academicTermId).then((term: any) => {
+      this.form.patchValue({
+        startDate: new Date(term.startOfTerm!),
+        endDate: new Date(term.endOfTerm!),
+        year: term.academicYear
+      });
+      this.loading = false;
+    }).catch(() => {
+      this.toastService.error('Error al cargar período académico');
+      this.loading = false;
+      this.cancel();
     });
   }
 
@@ -91,33 +87,27 @@ export class FormComponent implements OnInit {
   }
 
   createAcademicTerm(requestDTO: CreateAcademicPeriodRequestDTO): void {
-    this.academicTermsService.createAcademicPeriod({ body: requestDTO }).subscribe({
-      next: () => {
-        this.toastService.success('Período académico creado exitosamente');
-        this.submitting = false;
-        this.router.navigate(['/academic-terms']);
-      },
-      error: (error) => {
-        this.toastService.error('Error al crear período académico');
-        this.submitting = false;
-      }
+    AcademicTermsService.createAcademicTerm(requestDTO).then(() => {
+      this.toastService.success('Período académico creado exitosamente');
+      this.submitting = false;
+      this.router.navigate(['/academic-terms']);
+    }).catch(() => {
+      this.toastService.error('Error al crear período académico');
+      this.submitting = false;
     });
   }
 
   updateAcademicTerm(requestDTO: CreateAcademicPeriodRequestDTO): void {
-    this.academicTermsService.updateAcademicPeriod({ 
-      id: this.academicTermId!, 
-      body: requestDTO 
-    }).subscribe({
-      next: () => {
-        this.toastService.success('Período académico actualizado exitosamente');
-        this.submitting = false;
-        this.router.navigate(['/academic-terms']);
-      },
-      error: (error) => {
-        this.toastService.error('Error al actualizar período académico');
-        this.submitting = false;
-      }
+    AcademicTermsService.updateAcademicTerm(
+      this.academicTermId!, 
+      requestDTO as any
+    ).then(() => {
+      this.toastService.success('Período académico actualizado exitosamente');
+      this.submitting = false;
+      this.router.navigate(['/academic-terms']);
+    }).catch(() => {
+      this.toastService.error('Error al actualizar período académico');
+      this.submitting = false;
     });
   }
 

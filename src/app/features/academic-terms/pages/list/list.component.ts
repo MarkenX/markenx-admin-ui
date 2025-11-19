@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { AcademicTermsService } from '../../../../core/api/services/AcademicTermsService';
 import { AcademicPeriodResponseDTO } from '../../../../core/api/models/AcademicPeriodResponseDTO';
+import { AcademicTermsService } from '../../../../core/api/services/AcademicTermsService';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 interface StatusOption {
@@ -33,7 +33,6 @@ export class ListComponent implements OnInit {
   selectedStatus: string | null = null;
 
   constructor(
-    private academicTermsService: AcademicTermsService,
     private toastService: ToastService,
     private confirmationService: ConfirmationService,
     private router: Router
@@ -45,22 +44,14 @@ export class ListComponent implements OnInit {
 
   loadAcademicTerms(): void {
     this.loading = true;
-    const page = Math.floor(this.first / this.rows);
     
-    this.academicTermsService.getAllAcademicPeriods({
-      page: page,
-      size: this.rows,
-      sort: ['code,desc']
-    }).subscribe({
-      next: (response: any) => {
-        this.academicTerms = response.content || [];
-        this.totalRecords = response.totalElements || 0;
-        this.loading = false;
-      },
-      error: (error) => {
-        this.toastService.error('Error al cargar períodos académicos');
-        this.loading = false;
-      }
+    AcademicTermsService.getAllAcademicTerms().then((response: any) => {
+      this.academicTerms = response.content || [];
+      this.totalRecords = response.totalElements || 0;
+      this.loading = false;
+    }).catch(() => {
+      this.toastService.error('Error al cargar períodos académicos');
+      this.loading = false;
     });
   }
 
@@ -91,14 +82,11 @@ export class ListComponent implements OnInit {
       acceptLabel: 'Sí, deshabilitar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.academicTermsService.disableAcademicPeriod({ id: academicTerm.id! }).subscribe({
-          next: () => {
-            this.toastService.success('Período académico deshabilitado exitosamente');
-            this.loadAcademicTerms();
-          },
-          error: (error) => {
-            this.toastService.error('Error al deshabilitar período académico');
-          }
+        AcademicTermsService.disableAcademicTerm(academicTerm.id!).then(() => {
+          this.toastService.success('Período académico deshabilitado exitosamente');
+          this.loadAcademicTerms();
+        }).catch(() => {
+          this.toastService.error('Error al deshabilitar período académico');
         });
       }
     });
@@ -112,14 +100,11 @@ export class ListComponent implements OnInit {
       acceptLabel: 'Sí, habilitar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.academicTermsService.enableAcademicPeriod({ id: academicTerm.id! }).subscribe({
-          next: () => {
-            this.toastService.success('Período académico habilitado exitosamente');
-            this.loadAcademicTerms();
-          },
-          error: (error) => {
-            this.toastService.error('Error al habilitar período académico');
-          }
+        AcademicTermsService.enableAcademicTerm(academicTerm.id!).then(() => {
+          this.toastService.success('Período académico habilitado exitosamente');
+          this.loadAcademicTerms();
+        }).catch(() => {
+          this.toastService.error('Error al habilitar período académico');
         });
       }
     });
