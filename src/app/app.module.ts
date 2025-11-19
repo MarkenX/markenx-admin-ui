@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,9 +12,15 @@ import { PrimengModule } from './shared/modules/primeng.module';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
+import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
+import { ErrorInterceptor } from './core/auth/interceptors/error.interceptor';
+import { LoadingInterceptor } from './core/auth/interceptors/loading.interceptor';
+import { LoginComponent } from './features/auth/login/login.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +34,22 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   ],
   providers: [
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
