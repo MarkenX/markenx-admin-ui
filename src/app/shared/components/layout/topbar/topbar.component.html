@@ -1,0 +1,27 @@
+<div class="topbar">
+  <div class="topbar-left">
+    <h4 class="m-0 text-primary">Sistema de Gestión Académica</h4>
+  </div>
+
+  <div class="topbar-right">
+    <div class="user-info">
+      <p-avatar 
+        [label]="userName.charAt(0).toUpperCase()" 
+        styleClass="mr-2" 
+        [style]="{'background-color': 'var(--primary-color)', 'color': 'var(--primary-color-text)'}">
+      </p-avatar>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <small class="user-email text-500">{{ userEmail }}</small>
+      </div>
+    </div>
+    
+    <p-button 
+      icon="pi pi-sign-out" 
+      (onClick)="logout()"
+      styleClass="p-button-text p-button-rounded p-button-danger"
+      pTooltip="Cerrar Sesión"
+      tooltipPosition="bottom">
+    </p-button>
+  </div>
+</div>

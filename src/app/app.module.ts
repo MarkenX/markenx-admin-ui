@@ -16,11 +16,19 @@ import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './core/auth/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/auth/interceptors/loading.interceptor';
 import { LoginComponent } from './features/auth/login/login.component';
+import { MainLayoutComponent } from './shared/components/layout/main-layout/main-layout.component';
+import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.component';
+import { TopbarComponent } from './shared/components/layout/topbar/topbar.component';
+import { HomeComponent } from './features/dashboard/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MainLayoutComponent,
+    SidebarComponent,
+    TopbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

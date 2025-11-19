@@ -1,0 +1,35 @@
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.layout-sidebar {
+  flex: 0 0 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 999;
+}
+
+.layout-main {
+  flex: 1;
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 998;
+}
+
+.layout-content {
+  flex: 1;
+  padding: 2rem;
+  background: var(--surface-ground);
+  overflow-y: auto;
+}

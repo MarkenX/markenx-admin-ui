@@ -1,0 +1,26 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h3 class="m-0">
+      <i class="pi pi-graduation-cap mr-2"></i>
+      MarkenX
+    </h3>
+    <p class="text-sm text-500 m-0">Admin Panel</p>
+  </div>
+
+  <div class="sidebar-menu">
+    <div *ngFor="let item of menuItems">
+      <hr *ngIf="item.separator" class="my-3" />
+      
+      <a 
+        *ngIf="!item.separator"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active-menu-item"
+        [routerLinkActiveOptions]="{exact: false}"
+        class="menu-item"
+        (click)="item.command && item.command()">
+        <i [class]="item.icon + ' mr-2'"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </div>
+  </div>
+</div>

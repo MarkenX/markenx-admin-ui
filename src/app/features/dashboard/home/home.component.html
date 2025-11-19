@@ -1,0 +1,105 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card>
+      <div class="flex align-items-center justify-content-between mb-4">
+        <div>
+          <h2 class="text-900 font-bold mb-2">¡Bienvenido, {{ userName }}!</h2>
+          <p class="text-600 mt-0 mb-0">Sistema de Gestión Académica MarkenX</p>
+        </div>
+        <i class="pi pi-home text-primary" style="font-size: 3rem;"></i>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card styleClass="border-left-3 border-blue-500">
+      <div class="flex justify-content-between align-items-start">
+        <div>
+          <div class="text-500 font-medium mb-2">Períodos Académicos</div>
+          <div class="text-900 text-3xl font-bold">-</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-blue-100 border-round" 
+             style="width:3rem;height:3rem">
+          <i class="pi pi-calendar text-blue-500 text-xl"></i>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card styleClass="border-left-3 border-green-500">
+      <div class="flex justify-content-between align-items-start">
+        <div>
+          <div class="text-500 font-medium mb-2">Cursos</div>
+          <div class="text-900 text-3xl font-bold">-</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-green-100 border-round" 
+             style="width:3rem;height:3rem">
+          <i class="pi pi-book text-green-500 text-xl"></i>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card styleClass="border-left-3 border-orange-500">
+      <div class="flex justify-content-between align-items-start">
+        <div>
+          <div class="text-500 font-medium mb-2">Estudiantes</div>
+          <div class="text-900 text-3xl font-bold">-</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-orange-100 border-round" 
+             style="width:3rem;height:3rem">
+          <i class="pi pi-users text-orange-500 text-xl"></i>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card styleClass="border-left-3 border-purple-500">
+      <div class="flex justify-content-between align-items-start">
+        <div>
+          <div class="text-500 font-medium mb-2">Tareas</div>
+          <div class="text-900 text-3xl font-bold">-</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-purple-100 border-round" 
+             style="width:3rem;height:3rem">
+          <i class="pi pi-list text-purple-500 text-xl"></i>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12">
+    <p-card>
+      <h3 class="text-900 mb-3">Accesos Rápidos</h3>
+      <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3">
+          <a routerLink="/academic-terms" class="p-3 border-round hover:surface-hover cursor-pointer flex align-items-center gap-3 text-color no-underline">
+            <i class="pi pi-calendar text-primary text-2xl"></i>
+            <span class="font-medium">Gestionar Períodos</span>
+          </a>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+          <a routerLink="/courses" class="p-3 border-round hover:surface-hover cursor-pointer flex align-items-center gap-3 text-color no-underline">
+            <i class="pi pi-book text-primary text-2xl"></i>
+            <span class="font-medium">Gestionar Cursos</span>
+          </a>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+          <a routerLink="/students" class="p-3 border-round hover:surface-hover cursor-pointer flex align-items-center gap-3 text-color no-underline">
+            <i class="pi pi-users text-primary text-2xl"></i>
+            <span class="font-medium">Gestionar Estudiantes</span>
+          </a>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+          <a routerLink="/tasks" class="p-3 border-round hover:surface-hover cursor-pointer flex align-items-center gap-3 text-color no-underline">
+            <i class="pi pi-list text-primary text-2xl"></i>
+            <span class="font-medium">Gestionar Tareas</span>
+          </a>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
