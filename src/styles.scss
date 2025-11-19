@@ -1,0 +1,233 @@
+/* ==========================================================================
+   MarkenX Admin UI - Global Styles
+   ========================================================================== */
+
+/* Import PrimeNG Base */
+@import "primeicons/primeicons.css";
+@import "primeng/resources/primeng.min.css";
+
+/* Import MarkenX DXP Assets */
+@import "@chrisjmora/markenx-dxp-assets/scss/index.scss";
+
+/* ==========================================================================
+   CSS Variables - ONLY MarkenX DXP Colors
+   ========================================================================== */
+:root {
+  /* Primary Colors - EXACT from MarkenX DXP */
+  --primary-color-white: #FFFFFF;
+  --primary-color-black: #222222;
+  --primary-color-red: #8B0E2A;
+  --primary-hover-red: #FFF0F3;
+  
+  /* Gray Colors - EXACT from MarkenX DXP */
+  --gray-color-light: #EEEEEE;
+  --gray-color-light-20: #E9E9E9;
+  --gray-color-light-40: #C4C4C4;
+  --gray-color-dark: #717171;
+  --gray-color-dark-80: #5D5D5D;
+  --gray-color-dark-100: #1E1E1E;
+  
+  /* Shadow Color */
+  --shadow-color: rgba(34, 34, 34, 0.3);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--primary-color-black);
+  background-color: var(--primary-color-white);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--primary-color-black);
+}
+
+h1 { 
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+}
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+/* ==========================================================================
+   PrimeNG Customizations - ONLY MarkenX DXP Colors
+   ========================================================================== */
+
+/* Button */
+.p-button {
+  border-radius: 0;
+  font-weight: 500;
+}
+
+.p-button.p-button-primary {
+  background-color: var(--primary-color-red);
+  border-color: var(--primary-color-red);
+  color: var(--primary-color-white);
+}
+
+.p-button.p-button-primary:hover {
+  background-color: var(--primary-color-red);
+  border-color: var(--primary-color-red);
+}
+
+.p-button.p-button-secondary {
+  background-color: var(--gray-color-light);
+  color: var(--primary-color-black);
+  border: 1px solid var(--gray-color-light-40);
+}
+
+/* Input Fields */
+.p-inputtext,
+.p-dropdown,
+.p-calendar .p-inputtext {
+  border-radius: 0;
+  border: 1px solid var(--gray-color-light-40);
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-calendar .p-inputtext:focus {
+  border-color: var(--primary-color-red);
+  box-shadow: none;
+}
+
+/* Table */
+.p-datatable .p-datatable-header {
+  background-color: var(--primary-color-red);
+  color: var(--primary-color-white);
+  border-radius: 0;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: var(--gray-color-light-20);
+  color: var(--primary-color-black);
+  font-weight: 600;
+  border-bottom: 2px solid var(--gray-color-light-40);
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: var(--gray-color-light);
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid var(--gray-color-light-40);
+}
+
+/* Dialog */
+.p-dialog {
+  border-radius: 0;
+  box-shadow: 0 4px 4px var(--shadow-color);
+}
+
+.p-dialog .p-dialog-header {
+  background-color: var(--primary-color-red);
+  color: var(--primary-color-white);
+  border-radius: 0;
+}
+
+.p-dialog .p-dialog-footer {
+  border-top: 1px solid var(--gray-color-light-40);
+}
+
+/* Sidebar */
+.p-sidebar {
+  box-shadow: 0 4px 4px var(--shadow-color);
+}
+
+.p-sidebar .p-sidebar-header {
+  background-color: var(--primary-color-red);
+  color: var(--primary-color-white);
+}
+
+/* Dropdown */
+.p-dropdown-panel {
+  border-radius: 0;
+  box-shadow: 0 4px 4px var(--shadow-color);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover {
+  background-color: var(--primary-hover-red);
+  color: var(--primary-color-red);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background-color: var(--primary-hover-red);
+  color: var(--primary-color-red);
+}
+
+/* Menu */
+.p-menu .p-menuitem-link {
+  border-radius: 0;
+}
+
+.p-menu .p-menuitem-link:hover {
+  background-color: var(--primary-hover-red);
+  color: var(--primary-color-red);
+}
+
+/* Paginator */
+.p-paginator {
+  border-radius: 0;
+  background-color: var(--gray-color-light);
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+  border-radius: 0;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--primary-color-red);
+  color: var(--primary-color-white);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-color-light-20);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-color-red);
+}

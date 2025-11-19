@@ -1,0 +1,25 @@
+<header class="app-header">
+  <div class="app-header__content">
+    <div class="app-header__left">
+      <img 
+        src="assets/images/logo_udla.svg" 
+        alt="UDLA Logo" 
+        class="app-header__logo"
+        height="68">
+      <h1 class="app-header__title">{{ title }}</h1>
+    </div>
+    
+    <div class="app-header__right">
+      <div class="app-header__user-info">
+        <span class="app-header__welcome">Bienvenido</span>
+        <span class="app-header__user-name">{{ userName }}</span>
+      </div>
+      
+      <div class="app-header__divider"></div>
+      
+      <div class="app-header__logout" (click)="onLogout()">
+        <i class="pi pi-sign-out"></i>
+      </div>
+    </div>
+  </div>
+</header>

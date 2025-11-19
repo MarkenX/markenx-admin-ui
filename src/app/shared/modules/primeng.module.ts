@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
@@ -26,6 +27,7 @@ import { TooltipModule } from 'primeng/tooltip';
 const PRIMENG_MODULES = [
   TableModule,
   ButtonModule,
+  BreadcrumbModule,
   CardModule,
   InputTextModule,
   DialogModule,

@@ -1,0 +1,70 @@
+<nav class="menu">
+  <ul class="menu-item-group__subitems">
+    <li *ngFor="let item of menuItems" class="menu-item-group__subitem">
+      <!-- Item with subitems -->
+      <div *ngIf="item.subItems && item.subItems.length > 0">
+        <div class="menu-item">
+          <div 
+            class="menu-item__divider" 
+            *ngIf="isActive(item.route)">
+          </div>
+          <button 
+            type="button"
+            class="menu-item__content"
+            [class.menu-item__content--selected]="isActive(item.route)"
+            (click)="toggleSubMenu(item.value)">
+            <i [class]="item.icon + ' menu-item__icon'"></i>
+            <span class="menu-item__label">{{ item.label }}</span>
+            <i 
+              class="pi menu-item__icon" 
+              [class.pi-chevron-down]="!isExpanded(item.value)"
+              [class.pi-chevron-up]="isExpanded(item.value)"
+              style="margin-left: auto;">
+            </i>
+          </button>
+        </div>
+        
+        <!-- Subitems -->
+        <ul 
+          class="menu-item-group__subitems" 
+          *ngIf="isExpanded(item.value)"
+          style="padding-left: 0;">
+          <li 
+            *ngFor="let subItem of item.subItems" 
+            class="menu-item-group__subitem">
+            <div class="menu-item">
+              <div 
+                class="menu-item__divider" 
+                *ngIf="isActive(subItem.route)">
+              </div>
+              <button 
+                type="button"
+                class="menu-item__content menu-item__content--subgroup"
+                [class.menu-item__content--selected]="isActive(subItem.route)"
+                (click)="navigateTo(subItem.route)">
+                <i [class]="subItem.icon + ' menu-item__icon'"></i>
+                <span class="menu-item__label">{{ subItem.label }}</span>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Item without subitems -->
+      <div *ngIf="!item.subItems || item.subItems.length === 0" class="menu-item">
+        <div 
+          class="menu-item__divider" 
+          *ngIf="isActive(item.route)">
+        </div>
+        <button 
+          type="button"
+          class="menu-item__content"
+          [class.menu-item__content--selected]="isActive(item.route)"
+          (click)="navigateTo(item.route)">
+          <i [class]="item.icon + ' menu-item__icon'"></i>
+          <span class="menu-item__label">{{ item.label }}</span>
+        </button>
+      </div>
+    </li>
+  </ul>
+</nav>

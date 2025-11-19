@@ -22,6 +22,13 @@ import { TopbarComponent } from './shared/components/layout/topbar/topbar.compon
 import { HomeComponent } from './features/dashboard/home/home.component';
 import { SessionTimeoutComponent } from './shared/components/session-timeout/session-timeout.component';
 
+// MarkenX DXP Components
+import { MarkenxLayoutComponent } from './shared/components/markenx-layout/markenx-layout.component';
+import { MarkenxHeaderComponent } from './shared/components/markenx-header/markenx-header.component';
+import { MarkenxMenuComponent } from './shared/components/markenx-menu/markenx-menu.component';
+import { MarkenxBreadcrumbComponent } from './shared/components/markenx-breadcrumb/markenx-breadcrumb.component';
+import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +37,12 @@ import { SessionTimeoutComponent } from './shared/components/session-timeout/ses
     SidebarComponent,
     TopbarComponent,
     HomeComponent,
-    SessionTimeoutComponent
+    SessionTimeoutComponent,
+    MarkenxLayoutComponent,
+    MarkenxHeaderComponent,
+    MarkenxMenuComponent,
+    MarkenxBreadcrumbComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,

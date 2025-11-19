@@ -1,0 +1,23 @@
+<div class="app">
+  <!-- Header -->
+  <app-markenx-header 
+    [title]="headerTitle"
+    [userName]="userName"
+    (logout)="logout.emit()">
+  </app-markenx-header>
+
+  <!-- Main Layout -->
+  <div class="app__layout">
+    <!-- Sidebar Menu -->
+    <app-markenx-menu [menuItems]="menuItems"></app-markenx-menu>
+
+    <!-- Content Area -->
+    <div class="app__content">
+      <!-- Breadcrumb -->
+      <app-markenx-breadcrumb></app-markenx-breadcrumb>
+      
+      <!-- Router Outlet -->
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
