@@ -1,0 +1,102 @@
+<div class="card">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h3 class="m-0">Importación Masiva de Estudiantes</h3>
+    <p-button 
+      icon="pi pi-arrow-left" 
+      label="Volver" 
+      styleClass="p-button-text"
+      (onClick)="cancel()">
+    </p-button>
+  </div>
+
+  <div class="grid">
+    <div class="col-12">
+      <p-card>
+        <ng-template pTemplate="header">
+          <div class="p-3">
+            <h5 class="m-0">Instrucciones</h5>
+          </div>
+        </ng-template>
+        <div class="flex flex-column gap-2">
+          <p class="m-0"><strong>1.</strong> Descargue la plantilla CSV haciendo clic en el botón de abajo.</p>
+          <p class="m-0"><strong>2.</strong> Complete la plantilla con los datos de los estudiantes.</p>
+          <p class="m-0"><strong>3.</strong> El archivo debe contener las columnas: <code>firstName</code>, <code>lastName</code>, <code>email</code></p>
+          <p class="m-0"><strong>4.</strong> Todos los emails deben pertenecer al dominio <strong>@udla.edu.ec</strong></p>
+          <p class="m-0"><strong>5.</strong> Seleccione el curso al que pertenecerán los estudiantes.</p>
+          <p class="m-0"><strong>6.</strong> Cargue el archivo CSV completado.</p>
+        </div>
+        <ng-template pTemplate="footer">
+          <p-button 
+            label="Descargar Plantilla CSV" 
+            icon="pi pi-download" 
+            styleClass="p-button-outlined"
+            (onClick)="downloadTemplate()">
+          </p-button>
+        </ng-template>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6">
+      <div class="field">
+        <label for="courseId" class="block mb-2">
+          Curso <span class="text-red-500">*</span>
+        </label>
+        <p-dropdown 
+          id="courseId"
+          [(ngModel)]="selectedCourseId"
+          [options]="courseOptions"
+          [loading]="loadingCourses"
+          placeholder="Seleccione un curso"
+          optionLabel="label"
+          optionValue="value"
+          [style]="{'width': '100%'}">
+        </p-dropdown>
+        <small class="text-500 block mt-1">
+          Seleccione el curso al que se asignarán todos los estudiantes
+        </small>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="field">
+        <label class="block mb-2">
+          Archivo CSV <span class="text-red-500">*</span>
+        </label>
+        <p-fileUpload 
+          mode="basic" 
+          accept=".csv"
+          [maxFileSize]="5000000"
+          [auto]="false"
+          chooseLabel="Seleccionar Archivo CSV"
+          (onSelect)="onFileSelect($event)"
+          [disabled]="!selectedCourseId">
+        </p-fileUpload>
+        <small class="text-500 block mt-1" *ngIf="selectedFile">
+          Archivo seleccionado: <strong>{{ selectedFile.name }}</strong>
+        </small>
+        <small class="text-500 block mt-1" *ngIf="!selectedCourseId">
+          Primero seleccione un curso
+        </small>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="flex gap-2 justify-content-end mt-3">
+        <p-button 
+          label="Cancelar" 
+          icon="pi pi-times" 
+          styleClass="p-button-text"
+          (onClick)="cancel()"
+          [disabled]="uploading">
+        </p-button>
+        <p-button 
+          label="Importar Estudiantes" 
+          icon="pi pi-upload"
+          (onClick)="uploadStudents()"
+          [loading]="uploading"
+          [disabled]="!selectedCourseId || !selectedFile">
+        </p-button>
+      </div>
+    </div>
+  </div>
+</div>

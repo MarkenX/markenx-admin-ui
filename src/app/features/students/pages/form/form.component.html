@@ -1,0 +1,145 @@
+<div class="card">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h3 class="m-0">{{ isEditMode ? 'Editar' : 'Crear' }} Estudiante</h3>
+    <p-button 
+      icon="pi pi-arrow-left" 
+      label="Volver" 
+      styleClass="p-button-text"
+      (onClick)="cancel()">
+    </p-button>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-content-center align-items-center p-5">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="grid">
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="firstName" class="block mb-2">
+            Nombres <span class="text-red-500">*</span>
+          </label>
+          <input 
+            pInputText 
+            id="firstName"
+            formControlName="firstName"
+            placeholder="Ingrese los nombres"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('firstName')}" />
+          <small 
+            *ngIf="isFieldInvalid('firstName')" 
+            class="p-error block mt-1">
+            {{ getFieldError('firstName') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="lastName" class="block mb-2">
+            Apellidos <span class="text-red-500">*</span>
+          </label>
+          <input 
+            pInputText 
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Ingrese los apellidos"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('lastName')}" />
+          <small 
+            *ngIf="isFieldInvalid('lastName')" 
+            class="p-error block mt-1">
+            {{ getFieldError('lastName') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="email" class="block mb-2">
+            Email <span class="text-red-500">*</span>
+            <span class="text-500 text-sm ml-2">(@udla.edu.ec)</span>
+          </label>
+          <input 
+            pInputText 
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="ejemplo@udla.edu.ec"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('email')}" />
+          <small 
+            *ngIf="isFieldInvalid('email')" 
+            class="p-error block mt-1">
+            {{ getFieldError('email') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="password" class="block mb-2">
+            Contraseña <span class="text-red-500" *ngIf="!isEditMode">*</span>
+            <span class="text-500 text-sm ml-2" *ngIf="isEditMode">(Dejar vacío para no cambiar)</span>
+          </label>
+          <input 
+            pInputText 
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Mínimo 8 caracteres"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('password')}" />
+          <small 
+            *ngIf="isFieldInvalid('password')" 
+            class="p-error block mt-1">
+            {{ getFieldError('password') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="courseId" class="block mb-2">
+            Curso <span class="text-red-500">*</span>
+          </label>
+          <p-dropdown 
+            id="courseId"
+            formControlName="courseId"
+            [options]="courseOptions"
+            [loading]="loadingCourses"
+            placeholder="Seleccione un curso"
+            optionLabel="label"
+            optionValue="value"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('courseId')}">
+          </p-dropdown>
+          <small 
+            *ngIf="isFieldInvalid('courseId')" 
+            class="p-error block mt-1">
+            {{ getFieldError('courseId') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="flex gap-2 justify-content-end mt-3">
+          <p-button 
+            label="Cancelar" 
+            icon="pi pi-times" 
+            styleClass="p-button-text"
+            (onClick)="cancel()"
+            [disabled]="submitting">
+          </p-button>
+          <p-button 
+            type="submit"
+            [label]="isEditMode ? 'Actualizar' : 'Crear'" 
+            icon="pi pi-check"
+            [loading]="submitting">
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
