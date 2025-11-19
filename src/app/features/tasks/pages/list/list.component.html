@@ -1,27 +1,21 @@
 <div class="card">
   <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
-      <h5 class="m-0">Gestión de Tareas</h5>
+      <h3 class="m-0">Tareas</h3>
     </ng-template>
-    
     <ng-template pTemplate="right">
       <p-dropdown 
         [options]="statusOptions" 
         [(ngModel)]="selectedStatus" 
         (onChange)="filterByStatus()"
-        placeholder="Filtrar por Estado"
-        [showClear]="true"
+        placeholder="Filtrar por estado"
         styleClass="mr-2">
       </p-dropdown>
-      
-      <button 
-        pButton 
-        pRipple 
+      <p-button 
         label="Nueva Tarea" 
         icon="pi pi-plus" 
-        class="p-button-success"
-        (click)="createNew()">
-      </button>
+        (onClick)="createNew()">
+      </p-button>
     </ng-template>
   </p-toolbar>
 
@@ -39,9 +33,9 @@
     
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="code">Código <p-sortIcon field="code"></p-sortIcon></th>
-        <th pSortableColumn="title">Título <p-sortIcon field="title"></p-sortIcon></th>
-        <th pSortableColumn="dueDate">Fecha Límite <p-sortIcon field="dueDate"></p-sortIcon></th>
+        <th>Código</th>
+        <th>Título</th>
+        <th>Fecha Límite</th>
         <th>Intentos Máx.</th>
         <th>Punt. Mín. Aprobación</th>
         <th>Estado</th>
@@ -63,41 +57,43 @@
           </p-tag>
         </td>
         <td>
-          <button 
-            pButton 
-            pRipple 
-            icon="pi pi-pencil" 
-            class="p-button-rounded p-button-info mr-2"
-            (click)="edit(task)"
-            pTooltip="Editar">
-          </button>
-          
-          <button 
-            *ngIf="task.status === 'ENABLED'"
-            pButton 
-            pRipple 
-            icon="pi pi-times" 
-            class="p-button-rounded p-button-danger"
-            (click)="disable(task)"
-            pTooltip="Deshabilitar">
-          </button>
-          
-          <button 
-            *ngIf="task.status === 'DISABLED'"
-            pButton 
-            pRipple 
-            icon="pi pi-check" 
-            class="p-button-rounded p-button-success"
-            (click)="enable(task)"
-            pTooltip="Habilitar">
-          </button>
+          <div class="flex gap-2">
+            <p-button 
+              icon="pi pi-pencil" 
+              styleClass="p-button-rounded p-button-text p-button-warning"
+              (onClick)="edit(task)"
+              pTooltip="Editar"
+              tooltipPosition="top">
+            </p-button>
+            <p-button 
+              *ngIf="task.status === 'ENABLED'"
+              icon="pi pi-times" 
+              styleClass="p-button-rounded p-button-text p-button-danger"
+              (onClick)="disable(task)"
+              pTooltip="Deshabilitar"
+              tooltipPosition="top">
+            </p-button>
+            <p-button 
+              *ngIf="task.status === 'DISABLED'"
+              icon="pi pi-check" 
+              styleClass="p-button-rounded p-button-text p-button-success"
+              (onClick)="enable(task)"
+              pTooltip="Habilitar"
+              tooltipPosition="top">
+            </p-button>
+          </div>
         </td>
       </tr>
     </ng-template>
     
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="7" class="text-center">No se encontraron tareas.</td>
+        <td colspan="7" class="text-center">
+          <div class="p-4">
+            <i class="pi pi-info-circle text-4xl text-400"></i>
+            <p class="text-500 mt-3">No se encontraron tareas</p>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>

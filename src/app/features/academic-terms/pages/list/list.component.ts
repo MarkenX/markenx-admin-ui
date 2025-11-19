@@ -52,7 +52,8 @@ export class ListComponent implements OnInit {
     
     const params: any = {
       page: page,
-      size: this.rows
+      size: this.rows,
+      sort: 'academicYear,asc'
     };
     
     if (this.selectedStatus) {
