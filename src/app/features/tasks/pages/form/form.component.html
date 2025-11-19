@@ -11,6 +11,8 @@
           formControlName="courseId"
           [options]="courseOptions"
           placeholder="Seleccione un curso"
+          optionLabel="label"
+          optionValue="value"
           [showClear]="!isEditMode"
           [disabled]="isEditMode">
         </p-dropdown>
@@ -114,19 +116,24 @@
 
       <!-- Puntaje Mínimo para Aprobar -->
       <div class="field">
-        <label for="minScoreToPass">Puntaje Mínimo para Aprobar *</label>
+        <label for="minScoreToPass">Puntaje Mínimo para Aprobar (0-10) *</label>
         <p-inputNumber 
           id="minScoreToPass"
           formControlName="minScoreToPass"
           [showButtons]="true"
           [min]="0"
-          [max]="100"
-          suffix="%">
+          [max]="10"
+          [step]="0.5"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="1">
         </p-inputNumber>
         <small 
           class="p-error" 
           *ngIf="taskForm.get('minScoreToPass')?.invalid && taskForm.get('minScoreToPass')?.touched">
-          El puntaje mínimo debe estar entre 0 y 100.
+          El puntaje mínimo debe estar entre 0 y 10.
+        </small>
+        <small class="text-muted">
+          Escala de 0 a 10 (ejemplo: 7.0 significa que el estudiante necesita al menos 7 puntos para aprobar).
         </small>
       </div>
 

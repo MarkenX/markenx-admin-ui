@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
       summary: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
       dueDate: [null, Validators.required],
       maxAttempts: [3, [Validators.required, Validators.min(1), Validators.max(10)]],
-      minScoreToPass: [70, [Validators.required, Validators.min(0), Validators.max(100)]]
+      minScoreToPass: [7, [Validators.required, Validators.min(0), Validators.max(10)]]
     });
   }
 

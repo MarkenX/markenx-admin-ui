@@ -50,12 +50,10 @@ export class FormComponent implements OnInit {
     this.loadingPeriods = true;
     AcademicTermsService.getAllAcademicTerms().then((response: any) => {
       const periods = response.content || [];
-      this.academicPeriodOptions = periods
-        .filter((period: any) => period.status === 'ENABLED')
-        .map((period: any) => ({
-          label: period.label,
-          value: period.id
-        }));
+      this.academicPeriodOptions = periods.map((period: any) => ({
+        label: period.label,
+        value: period.id
+      }));
       this.loadingPeriods = false;
     }).catch(() => {
       this.toastService.error('Error al cargar períodos académicos');

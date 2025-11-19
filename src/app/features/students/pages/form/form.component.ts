@@ -53,12 +53,10 @@ export class FormComponent implements OnInit {
     this.loadingCourses = true;
     CoursesService.getAllCourses().then((response: any) => {
       const courses = response.content || [];
-      this.courseOptions = courses
-        .filter((course: any) => course.status === 'ENABLED')
-        .map((course: any) => ({
-          label: `${course.code} - ${course.name}`,
-          value: course.id
-        }));
+      this.courseOptions = courses.map((course: any) => ({
+        label: `${course.code} - ${course.name}`,
+        value: course.id
+      }));
       this.loadingCourses = false;
     }).catch(() => {
       this.toastService.error('Error al cargar cursos');
