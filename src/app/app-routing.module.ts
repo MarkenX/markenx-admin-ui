@@ -25,9 +25,23 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: HomeComponent
+      },
+      {
+        path: 'academic-terms',
+        loadChildren: () => import('./features/academic-terms/academic-terms.module').then(m => m.AcademicTermsModule)
+      },
+      {
+        path: 'courses',
+        loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule)
+      },
+      {
+        path: 'students',
+        loadChildren: () => import('./features/students/students.module').then(m => m.StudentsModule)
+      },
+      {
+        path: 'tasks',
+        loadChildren: () => import('./features/tasks/tasks.module').then(m => m.TasksModule)
       }
-      // Los módulos lazy-loaded se agregarán en pasos posteriores
-      // academic-terms, courses, students, tasks
     ]
   },
   {

@@ -1,0 +1,161 @@
+<div class="card">
+  <h5>{{ isEditMode ? 'Editar Tarea' : 'Nueva Tarea' }}</h5>
+  
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <!-- Curso -->
+      <div class="field">
+        <label for="courseId">Curso *</label>
+        <p-dropdown 
+          id="courseId"
+          formControlName="courseId"
+          [options]="courseOptions"
+          placeholder="Seleccione un curso"
+          [showClear]="!isEditMode"
+          [disabled]="isEditMode">
+        </p-dropdown>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('courseId')?.invalid && taskForm.get('courseId')?.touched">
+          El curso es requerido.
+        </small>
+        <small class="text-muted" *ngIf="isEditMode">
+          El curso no puede modificarse una vez creada la tarea.
+        </small>
+      </div>
+
+      <!-- Año Académico -->
+      <div class="field">
+        <label for="academicTermYear">Año Académico *</label>
+        <p-inputNumber 
+          id="academicTermYear"
+          formControlName="academicTermYear"
+          [showButtons]="!isEditMode"
+          [min]="2000"
+          [max]="2100"
+          [disabled]="isEditMode">
+        </p-inputNumber>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('academicTermYear')?.invalid && taskForm.get('academicTermYear')?.touched">
+          El año académico debe estar entre 2000 y 2100.
+        </small>
+        <small class="text-muted" *ngIf="isEditMode">
+          El año académico no puede modificarse una vez creada la tarea.
+        </small>
+      </div>
+
+      <!-- Título -->
+      <div class="field">
+        <label for="title">Título *</label>
+        <input 
+          id="title"
+          type="text" 
+          pInputText 
+          formControlName="title"
+          placeholder="Ingrese el título de la tarea">
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          El título debe tener entre 3 y 100 caracteres.
+        </small>
+      </div>
+
+      <!-- Descripción -->
+      <div class="field">
+        <label for="summary">Descripción *</label>
+        <textarea 
+          id="summary"
+          pInputTextarea 
+          formControlName="summary"
+          rows="4"
+          placeholder="Ingrese la descripción de la tarea">
+        </textarea>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('summary')?.invalid && taskForm.get('summary')?.touched">
+          La descripción debe tener entre 10 y 500 caracteres.
+        </small>
+      </div>
+
+      <!-- Fecha Límite -->
+      <div class="field">
+        <label for="dueDate">Fecha Límite *</label>
+        <p-calendar 
+          id="dueDate"
+          formControlName="dueDate"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          placeholder="Seleccione fecha límite">
+        </p-calendar>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">
+          La fecha límite es requerida.
+        </small>
+      </div>
+
+      <!-- Intentos Máximos -->
+      <div class="field">
+        <label for="maxAttempts">Intentos Máximos *</label>
+        <p-inputNumber 
+          id="maxAttempts"
+          formControlName="maxAttempts"
+          [showButtons]="true"
+          [min]="1"
+          [max]="10">
+        </p-inputNumber>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('maxAttempts')?.invalid && taskForm.get('maxAttempts')?.touched">
+          Los intentos máximos deben estar entre 1 y 10.
+        </small>
+      </div>
+
+      <!-- Puntaje Mínimo para Aprobar -->
+      <div class="field">
+        <label for="minScoreToPass">Puntaje Mínimo para Aprobar *</label>
+        <p-inputNumber 
+          id="minScoreToPass"
+          formControlName="minScoreToPass"
+          [showButtons]="true"
+          [min]="0"
+          [max]="100"
+          suffix="%">
+        </p-inputNumber>
+        <small 
+          class="p-error" 
+          *ngIf="taskForm.get('minScoreToPass')?.invalid && taskForm.get('minScoreToPass')?.touched">
+          El puntaje mínimo debe estar entre 0 y 100.
+        </small>
+      </div>
+
+      <!-- Botones -->
+      <div class="field">
+        <div class="flex gap-2">
+          <button 
+            pButton 
+            pRipple 
+            type="submit"
+            label="Guardar" 
+            icon="pi pi-check"
+            class="p-button-success"
+            [loading]="loading"
+            [disabled]="loading">
+          </button>
+          
+          <button 
+            pButton 
+            pRipple 
+            type="button"
+            label="Cancelar" 
+            icon="pi pi-times"
+            class="p-button-secondary"
+            (click)="goBack()"
+            [disabled]="loading">
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

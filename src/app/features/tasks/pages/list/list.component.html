@@ -1,0 +1,106 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <h5 class="m-0">Gestión de Tareas</h5>
+    </ng-template>
+    
+    <ng-template pTemplate="right">
+      <p-dropdown 
+        [options]="statusOptions" 
+        [(ngModel)]="selectedStatus" 
+        (onChange)="filterByStatus()"
+        placeholder="Filtrar por Estado"
+        [showClear]="true"
+        styleClass="mr-2">
+      </p-dropdown>
+      
+      <button 
+        pButton 
+        pRipple 
+        label="Nueva Tarea" 
+        icon="pi pi-plus" 
+        class="p-button-success"
+        (click)="createNew()">
+      </button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table 
+    [value]="tasks" 
+    [rows]="rows"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    [lazy]="true"
+    (onLazyLoad)="onPageChange($event)"
+    [first]="first"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines">
+    
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="code">Código <p-sortIcon field="code"></p-sortIcon></th>
+        <th pSortableColumn="title">Título <p-sortIcon field="title"></p-sortIcon></th>
+        <th pSortableColumn="dueDate">Fecha Límite <p-sortIcon field="dueDate"></p-sortIcon></th>
+        <th>Intentos Máx.</th>
+        <th>Punt. Mín. Aprobación</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td>{{ task.code }}</td>
+        <td>{{ task.title }}</td>
+        <td>{{ task.dueDate | date:'dd/MM/yyyy' }}</td>
+        <td>{{ task.maxAttempts }}</td>
+        <td>{{ task.minScoreToPass }}</td>
+        <td>
+          <p-tag 
+            [value]="getStatusLabel(task.status)" 
+            [severity]="getStatusSeverity(task.status)">
+          </p-tag>
+        </td>
+        <td>
+          <button 
+            pButton 
+            pRipple 
+            icon="pi pi-pencil" 
+            class="p-button-rounded p-button-info mr-2"
+            (click)="edit(task)"
+            pTooltip="Editar">
+          </button>
+          
+          <button 
+            *ngIf="task.status === 'ENABLED'"
+            pButton 
+            pRipple 
+            icon="pi pi-times" 
+            class="p-button-rounded p-button-danger"
+            (click)="disable(task)"
+            pTooltip="Deshabilitar">
+          </button>
+          
+          <button 
+            *ngIf="task.status === 'DISABLED'"
+            pButton 
+            pRipple 
+            icon="pi pi-check" 
+            class="p-button-rounded p-button-success"
+            (click)="enable(task)"
+            pTooltip="Habilitar">
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center">No se encontraron tareas.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
