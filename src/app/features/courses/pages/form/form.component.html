@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h3 class="m-0">{{ isEditMode ? 'Editar' : 'Crear' }} Curso</h3>
+    <p-button 
+      icon="pi pi-arrow-left" 
+      label="Volver" 
+      styleClass="p-button-text"
+      (onClick)="cancel()">
+    </p-button>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-content-center align-items-center p-5">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="grid">
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="academicPeriodId" class="block mb-2">
+            Período Académico <span class="text-red-500">*</span>
+          </label>
+          <p-dropdown 
+            id="academicPeriodId"
+            formControlName="academicPeriodId"
+            [options]="academicPeriodOptions"
+            [loading]="loadingPeriods"
+            placeholder="Seleccione un período académico"
+            optionLabel="label"
+            optionValue="value"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('academicPeriodId')}">
+          </p-dropdown>
+          <small 
+            *ngIf="isFieldInvalid('academicPeriodId')" 
+            class="p-error block mt-1">
+            {{ getFieldError('academicPeriodId') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <div class="field">
+          <label for="label" class="block mb-2">
+            Nombre del Curso <span class="text-red-500">*</span>
+          </label>
+          <input 
+            pInputText 
+            id="label"
+            formControlName="label"
+            placeholder="Ingrese el nombre del curso"
+            [style]="{'width': '100%'}"
+            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid('label')}" />
+          <small 
+            *ngIf="isFieldInvalid('label')" 
+            class="p-error block mt-1">
+            {{ getFieldError('label') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="flex gap-2 justify-content-end mt-3">
+          <p-button 
+            label="Cancelar" 
+            icon="pi pi-times" 
+            styleClass="p-button-text"
+            (onClick)="cancel()"
+            [disabled]="submitting">
+          </p-button>
+          <p-button 
+            type="submit"
+            [label]="isEditMode ? 'Actualizar' : 'Crear'" 
+            icon="pi pi-check"
+            [loading]="submitting">
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
