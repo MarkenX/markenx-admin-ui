@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import axios from 'axios';
 import { CourseResponseDTO } from '../../../../core/api/models/CourseResponseDTO';
 import { CoursesService } from '../../../../core/api/services/CoursesService';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { OpenAPI } from '../../../../core/api/core/OpenAPI';
+import { AuthService } from '../../../../core/auth/services/auth.service';
 
 interface StatusOption {
   label: string;
@@ -35,7 +38,8 @@ export class ListComponent implements OnInit {
   constructor(
     private toastService: ToastService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -44,15 +48,29 @@ export class ListComponent implements OnInit {
 
   loadCourses(): void {
     this.loading = true;
+    const page = Math.floor(this.first / this.rows);
     
-    CoursesService.getAllCourses().then((response: any) => {
-      this.courses = response.content || [];
-      this.totalRecords = response.totalElements || 0;
-      this.loading = false;
-    }).catch(() => {
-      this.toastService.error('Error al cargar cursos');
-      this.loading = false;
-    });
+    const params: any = {
+      page: page,
+      size: this.rows
+    };
+    
+    if (this.selectedStatus) {
+      params.status = this.selectedStatus;
+    }
+    
+    const token = this.authService.getToken();
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    
+    axios.get(`${OpenAPI.BASE}/api/markenx/courses`, { params, headers })
+      .then((response: any) => {
+        this.courses = response.data.content || [];
+        this.totalRecords = response.data.totalElements || 0;
+        this.loading = false;
+      }).catch(() => {
+        this.toastService.error('Error al cargar cursos');
+        this.loading = false;
+      });
   }
 
   onPageChange(event: any): void {
