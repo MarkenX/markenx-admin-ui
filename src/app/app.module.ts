@@ -20,6 +20,7 @@ import { MainLayoutComponent } from './shared/components/layout/main-layout/main
 import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.component';
 import { TopbarComponent } from './shared/components/layout/topbar/topbar.component';
 import { HomeComponent } from './features/dashboard/home/home.component';
+import { SessionTimeoutComponent } from './shared/components/session-timeout/session-timeout.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HomeComponent } from './features/dashboard/home/home.component';
     MainLayoutComponent,
     SidebarComponent,
     TopbarComponent,
-    HomeComponent
+    HomeComponent,
+    SessionTimeoutComponent
   ],
   imports: [
     BrowserModule,

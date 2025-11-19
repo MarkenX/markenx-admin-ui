@@ -1,0 +1,40 @@
+<p-dialog 
+  [(visible)]="showWarning"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="w-25rem">
+  
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+      <i class="pi pi-exclamation-triangle text-orange-500 text-2xl"></i>
+      <span class="font-bold">Advertencia de Sesión</span>
+    </div>
+  </ng-template>
+
+  <div class="text-center py-3">
+    <p class="m-0 mb-3">
+      Tu sesión está por expirar en menos de 1 minuto.
+    </p>
+    <p class="m-0 text-600">
+      ¿Deseas extender tu tiempo de sesión?
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex gap-2 justify-content-end">
+      <p-button 
+        label="Cerrar Sesión" 
+        icon="pi pi-sign-out"
+        styleClass="p-button-outlined p-button-danger"
+        (onClick)="handleLogout()">
+      </p-button>
+      <p-button 
+        label="Extender Sesión" 
+        icon="pi pi-clock"
+        (onClick)="handleExtendSession()">
+      </p-button>
+    </div>
+  </ng-template>
+</p-dialog>

@@ -144,4 +144,28 @@ export class AuthService {
       return throwError(() => new Error('Invalid token'));
     }
   }
+
+  refreshToken(refreshToken: string): Observable<TokenResponse> {
+    const body = new URLSearchParams();
+    body.set('grant_type', 'refresh_token');
+    body.set('client_id', KEYCLOAK_CONFIG.clientId);
+    body.set('refresh_token', refreshToken);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<TokenResponse>(`${this.KEYCLOAK_URL}/token`, body.toString(), { headers })
+      .pipe(
+        tap(response => {
+          this.setToken(response.access_token);
+          this.setRefreshToken(response.refresh_token);
+          this.authStatusSubject.next(true);
+        }),
+        catchError(error => {
+          console.error('Refresh token error:', error);
+          return throwError(() => new Error('No se pudo refrescar el token'));
+        })
+      );
+  }
 }
