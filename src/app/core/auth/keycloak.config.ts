@@ -1,5 +1,5 @@
 export const KEYCLOAK_CONFIG = {
-  url: 'http://localhost:7080',
+  url: '',
   realm: 'markenx',
   clientId: 'markenx-admin-web'
 };

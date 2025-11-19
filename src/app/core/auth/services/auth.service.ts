@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { OpenAPI } from '../../api/core/OpenAPI';
 import { KEYCLOAK_CONFIG } from '../keycloak.config';
 
 interface TokenResponse {
@@ -28,7 +29,13 @@ export class AuthService {
   private authStatusSubject = new BehaviorSubject<boolean>(this.hasToken());
   public authStatus$ = this.authStatusSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Inicializar token en OpenAPI config si existe
+    const token = this.getToken();
+    if (token) {
+      OpenAPI.TOKEN = token;
+    }
+  }
 
   login(email: string, password: string): Observable<TokenResponse> {
     const body = new URLSearchParams();
@@ -58,6 +65,8 @@ export class AuthService {
 
   logout(): void {
     this.clearTokens();
+    // Limpiar token de OpenAPI config
+    OpenAPI.TOKEN = undefined;
     this.authStatusSubject.next(false);
   }
 
@@ -71,6 +80,8 @@ export class AuthService {
 
   private setToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
+    // Actualizar OpenAPI config con el token
+    OpenAPI.TOKEN = token;
   }
 
   private setRefreshToken(token: string): void {
